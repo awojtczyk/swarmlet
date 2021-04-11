@@ -48,7 +48,7 @@ services:
   #       window: 120s
 
   traefik:
-    image: traefik:v2.4
+    image: traefik:v2.3
     restart: always
     secrets:
       - security.htpasswd
