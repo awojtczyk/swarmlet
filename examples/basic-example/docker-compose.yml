@@ -1,5 +1,8 @@
 version: '3.7'
 
+# Built-in environment variables
+# SWARMLET_REGISTRY // Defaults to the internal swarm registry at localhost:5000/v2
+
 services:
   basic-example:
     image: ${SWARMLET_REGISTRY}/${APP_NAME}

@@ -33,6 +33,7 @@ init() {
     done
 
     for KEY in "${!INSTALL_OPTS[@]}"; do
+      echo "$KEY=${INSTALL_OPTS[$KEY]}"
       export "$KEY=${INSTALL_OPTS[$KEY]}"
     done
 
@@ -59,6 +60,7 @@ init() {
   swarmlet stack build deployer "$SWARMLET_MODULES_ROOT"/core
   swarmlet stack deploy deployer "$SWARMLET_MODULES_ROOT"/core
 
+  echo "$SWARMLET_MODULES"
   for MODULE in ${SWARMLET_MODULES[@]}; do
     echo "$PREFIX Installing $MODULE"
     sudo swarmlet repo create "$(basename "$(echo "$MODULE" | sed -r "s/\"//g")")" #&>/dev/null

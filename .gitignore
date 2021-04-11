@@ -13,3 +13,4 @@ node_modules
 /misc
 /.vscode
 modules/core/router/lego/lego
+.idea
