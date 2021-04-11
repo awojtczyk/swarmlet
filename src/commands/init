@@ -61,7 +61,7 @@ init() {
 
   for MODULE in ${SWARMLET_MODULES[@]}; do
     echo "$PREFIX Installing $MODULE"
-    swarmlet repo create "$(basename "$(echo "$MODULE" | sed -r "s/\"//g")")" &>/dev/null
+    sudo swarmlet repo create "$(basename "$(echo "$MODULE" | sed -r "s/\"//g")")" #&>/dev/null
     git-local-push "$SWARMLET_MODULES_ROOT/$(echo "$MODULE" | sed -r "s/\"//g")" >/dev/null
   done
 }
