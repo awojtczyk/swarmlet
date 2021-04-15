@@ -5,6 +5,8 @@ services:
     image: verdaccio/verdaccio:${VERDACCIO_VERSION}
     networks:
       - web
+      - traefik-public
+      - swarmlet-network
     deploy:
       placement:
         constraints: [node.role == manager]
@@ -12,13 +14,17 @@ services:
         condition: on-failure
       labels:
         - traefik.enable=true
-        - traefik.port=4873
-        - traefik.docker.network=web
-        - traefik.frontend.redirect.entryPoint=${DOMAIN_ENTRYPOINT}
-        - traefik.frontend.passHostHeader=true
-        - traefik.frontend.rule=Host:${DOMAIN}
-        - traefik.backend.loadbalancer.swarm=true
-        - traefik.backend.loadbalancer.stickiness=true
+        - traefik.http.services.${APP_NAME}.loadbalancer.server.port=${APP_PORT}
+        - traefik.http.routers.${APP_NAME}.rule=Host(`${APP_NAME}.${ROOT_DOMAIN}`)
+        - traefik.http.routers.${APP_NAME}.entrypoints=http,https
+        - traefik.http.routers.${APP_NAME}.middlewares=redirect@file
+#        - traefik.port=4873
+#        - traefik.docker.network=web
+#        - traefik.frontend.redirect.entryPoint=${DOMAIN_ENTRYPOINT}
+#        - traefik.frontend.passHostHeader=true
+#        - traefik.frontend.rule=Host:${DOMAIN}
+#        - traefik.backend.loadbalancer.swarm=true
+#        - traefik.backend.loadbalancer.stickiness=true
     volumes:
       - ./config.yaml:/verdaccio/conf/config.yaml
       - ./htpasswd:/verdaccio/conf/htpasswd
@@ -26,4 +32,8 @@ services:
 
 networks:
   web:
+    external: true
+  swarmlet-network:
+    external: true
+  traefik-public:
     external: true
