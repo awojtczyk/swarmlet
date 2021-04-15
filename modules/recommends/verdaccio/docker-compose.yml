@@ -15,7 +15,7 @@ services:
         - traefik.enable=true
         - traefik.http.services.${APP_NAME}.loadbalancer.server.port=${APP_PORT}
         - traefik.http.routers.${APP_NAME}.rule=Host(`${APP_NAME}.${ROOT_DOMAIN}`)
-        - traefik.http.routers.${APP_NAME}.entrypoints=https
+        - traefik.http.routers.${APP_NAME}.entrypoints=http,https
         - traefik.http.routers.${APP_NAME}.middlewares=redirect@file
     volumes:
       - ./config.yaml:/verdaccio/conf/config.yaml

@@ -24,7 +24,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.services.registry.loadbalancer.server.port=5000
-        - traefik.http.routers.registry.rule=Host(`registry.${DOMAIN}`)
+        - traefik.http.routers.registry.rule=Host(`reg.${DOMAIN}`)
         - traefik.http.routers.registry.entrypoints=http,https
         - traefik.http.routers.registry.middlewares=redirect@file,auth@file
       placement:

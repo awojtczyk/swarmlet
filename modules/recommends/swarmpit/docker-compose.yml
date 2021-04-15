@@ -22,7 +22,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.services.swarmpit.loadbalancer.server.port=8080
-        - traefik.http.routers.swarmpit.rule=Host(`swarmpit.${DOMAIN}`)
+        - traefik.http.routers.swarmpit.rule=Host(`swarm.${DOMAIN}`)
         - traefik.http.routers.swarmpit.entrypoints=http,https
         - traefik.http.routers.swarmpit.middlewares=redirect@file
 
