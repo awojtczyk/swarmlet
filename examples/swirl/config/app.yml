@@ -1,0 +1,30 @@
+name: swirl
+banner: false
+
+web:
+#  mode: develop
+  entries:
+  - address: :8001
+  authorize: '?'
+
+swirl:
+  db_type: mongo
+  db_address: localhost:27017/swirl
+#  docker_endpoint: tcp://docker-proxy:2375
+
+log:
+  loggers:
+  - level: info
+    writers: console
+  writers:
+  - name: console
+    type: console
+    layout: '[{L}]{T}: {M}{N}'
+
+cache:
+- provider: memory
+  enabled: true
+  error: log
+  time: 10m
+  keys:
+    auth_user: 3m
