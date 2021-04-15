@@ -58,7 +58,7 @@ services:
           memory: 128M
 
   grafana:
-    image: stefanprodan/swarmprom-grafana:5.3.4
+    image: diabelb/swarmprom-grafana:7.3.10
     networks:
       - default
       - swarmprom-net
@@ -86,15 +86,11 @@ services:
         limits:
           memory: 128M
       labels:
-        - traefik.frontend.rule=Host:grafana.${DOMAIN}
         - traefik.enable=true
-        - traefik.port=3000
-        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
-        - traefik.docker.network=traefik-public
-        - traefik.redirectorservice.frontend.entryPoints=http
-        - traefik.redirectorservice.frontend.redirect.entryPoint=https
-        - traefik.webservice.frontend.entryPoints=https
-
+        - traefik.http.services.grafana.loadbalancer.server.port=3000
+        - traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`) # ${TODO: DOMAIN cannot be read after reboot}
+        - traefik.http.routers.grafana.entrypoints=http,https
+        - traefik.http.routers.grafana.service=grafana
   alertmanager:
     image: stefanprodan/swarmprom-alertmanager:v0.14.0
     networks:
