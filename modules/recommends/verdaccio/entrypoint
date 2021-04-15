@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -eo pipefail; [[ $DEBUG ]] && set -x
+
+NAME=$(basename $PWD)
+
+main() {
+  mkdir /mnt/gfs/verdaccio/
+  echo "$FPREFIX Running $NAME entrypoint script"
+}
+
+main "$@"
